@@ -8,4 +8,13 @@
 
 - 4. `npm i -D eslint` or `yarn add -D eslint`
 
-- 5. 
+- 5. 在 `package.json` 中配置脚本
+```json
+{
+  "scripts": {
+    "initial": "eslint --init",
+    "fix": "eslint --fix ./src"
+  }
+}
+```
+- 6. 在根目录下创建 `src` (ps. 为了更方便区分代码存在的地方和配置的根目录)
