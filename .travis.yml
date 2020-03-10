@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - lts/*
 install:
-  - npm ci # npm ci
+  - yarn install # npm ci
 script:
   - yarn build # npm run docs:build
 deploy:
