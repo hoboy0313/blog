@@ -1,0 +1,7 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "a test environment to test blog code. The directory structure is the same as the outer layer."
+}

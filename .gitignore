@@ -1,3 +1,4 @@
 node_modules/
-src/
 dist/
+# 源码存放处
+_source/
