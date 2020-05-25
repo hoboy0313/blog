@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>基础 | Luasy’s Blog</title>
+    <meta name="description" content="全面发展德智体美劳的小小programmer">
+    <meta name="generator" content="VuePress 1.3.1">
+    <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.47cf6a72.css" as="style"><link rel="preload" href="/blog/assets/js/app.9c5c8128.js" as="script"><link rel="preload" href="/blog/assets/js/2.fd7f5526.js" as="script"><link rel="preload" href="/blog/assets/js/23.67ce2c77.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.d0a1f248.js"><link rel="prefetch" href="/blog/assets/js/11.539a7978.js"><link rel="prefetch" href="/blog/assets/js/12.7f6acfad.js"><link rel="prefetch" href="/blog/assets/js/13.2f58d44f.js"><link rel="prefetch" href="/blog/assets/js/14.74945dd8.js"><link rel="prefetch" href="/blog/assets/js/15.f09a208f.js"><link rel="prefetch" href="/blog/assets/js/16.263abe9d.js"><link rel="prefetch" href="/blog/assets/js/17.899e3869.js"><link rel="prefetch" href="/blog/assets/js/18.87491eaf.js"><link rel="prefetch" href="/blog/assets/js/19.f6b83825.js"><link rel="prefetch" href="/blog/assets/js/20.35109bf5.js"><link rel="prefetch" href="/blog/assets/js/21.ffaf4f09.js"><link rel="prefetch" href="/blog/assets/js/22.b657a593.js"><link rel="prefetch" href="/blog/assets/js/24.57be745e.js"><link rel="prefetch" href="/blog/assets/js/3.4a6b1c23.js"><link rel="prefetch" href="/blog/assets/js/4.f03b7f8e.js"><link rel="prefetch" href="/blog/assets/js/5.f05c068a.js"><link rel="prefetch" href="/blog/assets/js/6.53d3c21b.js"><link rel="prefetch" href="/blog/assets/js/7.d5f88087.js"><link rel="prefetch" href="/blog/assets/js/8.ace39914.js"><link rel="prefetch" href="/blog/assets/js/9.021a961d.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.47cf6a72.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">Luasy’s Blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/blog/guide.html" class="nav-link">
+  指南
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/blog/guide.html" class="nav-link">
+  指南
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/blog/webpack/" class="sidebar-link">webpack 介绍</a></li><li><a href="/blog/webpack/profile.html" class="active sidebar-link">webpack 基础</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/webpack/profile.html#起步" class="sidebar-link">起步</a></li><li class="sidebar-sub-header"><a href="/blog/webpack/profile.html#一、入口（entry）" class="sidebar-link">一、入口（entry）</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="基础"><a href="#基础" class="header-anchor">#</a> 基础</h1> <p>webpack 有四个基础配置</p> <ul><li>入口</li> <li>出口</li> <li>loader</li> <li>plugin</li> <li>mode (后来用于区分打包环境)</li></ul> <h2 id="起步"><a href="#起步" class="header-anchor">#</a> 起步</h2> <p>这里以 <code>webpack4.x</code> 为讲解，不对<code>webpack3.x</code>解释。</p> <ol><li>安装工具</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">npm</span> i -D webpack webpack-cli
+</code></pre></div><ol start="2"><li>启动 <code>webpack</code> 进行打包</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code>npx webpack
+</code></pre></div><p>这时候会报错。</p> <p><img src="/img/webpack/w_001_npx_webpack.png" alt="w_001_npx_webpack"></p> <p>根据错误，我们会知道一些信息:</p> <ol><li>webpack 默认以 <code>src/index.js</code> 为打包入口开始打包。</li> <li>webpack 默认mode 以 <code>production</code> 打包。</li></ol> <p>这时，我们创建 <code>src文件夹</code>，并创建 <code>index.js</code>文件，随便写一个 <code>console</code>，在重新执行命令。则会打包成功。由此我们又可知。
+3. 默认的打包路径为 <code>dist</code>，入口文件名为 <code>main.js</code>。</p> <h2 id="一、入口（entry）"><a href="#一、入口（entry）" class="header-anchor">#</a> 一、入口（entry）</h2> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token comment">// webpack.config.js</span>
+<span class="token keyword">module</span><span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  entry<span class="token operator">:</span> String <span class="token operator">|</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token operator">|</span> Object <span class="token punctuation">{</span> <span class="token operator">&lt;</span>key<span class="token operator">&gt;</span><span class="token operator">:</span> String <span class="token operator">|</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token punctuation">}</span> <span class="token operator">|</span> <span class="token punctuation">(</span><span class="token function-variable function">function</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> String <span class="token operator">|</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token operator">|</span> Object <span class="token punctuation">{</span> <span class="token operator">&lt;</span>key<span class="token operator">&gt;</span><span class="token operator">:</span> String <span class="token operator">|</span> <span class="token punctuation">[</span>String<span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_1-字符串入口"><a href="#_1-字符串入口" class="header-anchor">#</a> 1. 字符串入口</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+
+  entry<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'src/index.js'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token comment">// 要求绝对路径</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_2-字符串数组入口"><a href="#_2-字符串数组入口" class="header-anchor">#</a> 2. 字符串数组入口</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+
+  entry<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'index'</span><span class="token punctuation">,</span> <span class="token string">'index2'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">p</span> <span class="token operator">=&gt;</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">src/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>p<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>这里会有 harmony import。即，index2.js 会单独引入一次，index.js 中也有导入了 index2.js 。因此，index.js 会对 index2.js 进行调用。</p></blockquote> <h3 id="_3-对象键值对入口"><a href="#_3-对象键值对入口" class="header-anchor">#</a> 3. 对象键值对入口</h3> <blockquote><p>对象入口最大的一个特点就是，会为每一个入口生成依赖关系，从而实现多页面系统(MPA)。</p></blockquote> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 3. Object { &lt;key&gt;: String | [String] }</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+
+  entry<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 打出的包叫 `app`, 入口文件为 `src/index.js`</span>
+    app<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'src/index.js'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    app2<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'src/index2.js'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_4-动态入口-函数导出"><a href="#_4-动态入口-函数导出" class="header-anchor">#</a> 4. 动态入口(函数导出)</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 4. function: () =&gt; String | [String] | Object { &lt;key&gt;: String | [String] }</span>
+<span class="token comment">// 函数就没有什么特别的了，就是基于函数的 return 来定，可以做一定的逻辑处理。return 的结果为上三种情况。</span>
+<span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">entry</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * return path.resolve('src/index.js');
+     * return ['index', 'index2'].map(p =&gt; path.resolve(`src/${p}.js`));
+     * return {
+     *   app: path.resolve('src/index.js')
+     * }
+     */</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>此外，入口还支持Promise 的异步导入。</p> <h3 id="_5-动态入口-promise导入"><a href="#_5-动态入口-promise导入" class="header-anchor">#</a> 5. 动态入口(Promise导入)</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token operator">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+
+  <span class="token function-variable function">entry</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token parameter">resolve</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 这里可以做一些异步操作。</span>
+    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'index'</span><span class="token punctuation">,</span> <span class="token string">'index2'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">p</span> <span class="token operator">=&gt;</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">src/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>p<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/webpack/" class="prev router-link-active">
+        webpack 介绍
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/blog/assets/js/app.9c5c8128.js" defer></script><script src="/blog/assets/js/2.fd7f5526.js" defer></script><script src="/blog/assets/js/23.67ce2c77.js" defer></script>
+  </body>
+</html>
