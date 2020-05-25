@@ -1,1 +1,4 @@
-# DOCS
+---
+sidebar: false
+---
+# 首页

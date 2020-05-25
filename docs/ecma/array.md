@@ -1,5 +1,3 @@
-<!-- [[toc]] -->
-
 
 # Array Polyfill
 
