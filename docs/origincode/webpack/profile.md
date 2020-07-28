@@ -121,3 +121,112 @@ module.exports = {
   })
 }
 ```
+
+## 二、出口(output)
+
+出口就是键值对配置，默认的`output`是：
+```js
+module.exports = {
+  mode: 'development',
+
+  entry: path.resolve('src/index.js')
+
+  output: {
+    path: path.resolve('dist'),
+    filename: 'main.js',
+  }
+}
+```
+
+### 2.1 auxiliaryComment
+
+简单来说就是给每个段导出加一段注释，常常用于库添加版本等情况。要配合 `output.library` 和 `output.libraryTarget` 一起使用。
+```js
+module.exports = {
+  mode: 'development',
+
+  entry: path.resolve('src/index.js')
+
+  output: {
+    library: "testlib",
+    libraryTarget: "umd",
+    path: path.resolve('dist'),
+    filename: 'main.js',
+    auxiliaryComment: "Test auxiliaryComment",
+  },
+
+  auxiliaryComment: {
+    root: "Root Comment",
+    commonjs: "CommonJS Comment",
+    commonjs2: "CommonJS2 Comment",
+    amd: "AMD Comment"
+  },
+}
+```
+
+结果：
+```js
+(function webpackUniversalModuleDefinition(root, factory) {
+	//Test auxiliaryComment
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	//Test auxiliaryComment
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	//Test auxiliaryComment
+	else if(typeof exports === 'object')
+		exports["testlib"] = factory();
+	//Test auxiliaryComment
+	else
+		root["testlib"] = factory();
+})(window, function() {
+  // ...
+})
+```
+
+亦或者更细粒度控制。
+
+```js
+module.exports = {
+  mode: 'development',
+
+  entry: path.resolve('src/index.js')
+
+  output: {
+    library: "testlib",
+    libraryTarget: "umd",
+    path: path.resolve('dist'),
+    filename: 'main.js',
+    auxiliaryComment: {
+      root: "Root Comment",
+      commonjs: "CommonJS Comment",
+      commonjs2: "CommonJS2 Comment",
+      amd: "AMD Comment"
+    },
+  },
+}
+```
+
+结果：
+```js
+(function webpackUniversalModuleDefinition(root, factory) {
+	//CommonJS2 Comment
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	//AMD Comment
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	//CommonJS Comment
+	else if(typeof exports === 'object')
+		exports["testlib"] = factory();
+	//Root Comment
+	else
+		root["testlib"] = factory();
+})(window, function() {
+  // ...
+})
+```
+
+> 如果不写库，暂时用不上。
+
+### 2.2 chunkFilename

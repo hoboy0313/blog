@@ -12,9 +12,33 @@ module.exports = {
 
   themeConfig: {
     nav: [
-      { text: '指南', link: '/guide' },
-      // { text: 'Home', link: '/' },
-      // { text: 'External', link: 'https://google.com' },
+      { text: '指南', link: '/guide/' },
+      { text: 'LeetCode', link: '/leetcode/' },
+      { text: 'Typescript', link: '/typescript/' },
+      { text: '单元测试', link: '/test/' },
+      {
+        text: '规范',
+        link: '/format',
+        items: [
+          { text: 'Eslint', link: '/format/eslint/' },
+          { text: 'Git提交规范', link: '/format/git/' },
+        ]
+      },
+      {
+        text: '源码分析',
+        items: [
+          { text: 'lodash', link: '/origincode/lodash/' },
+        ]
+      },
+      {
+        text: '计算机课程',
+        items: [
+          { text: '计算机组成原理', link: '/computer/computer-principles/' },
+          { text: '计算机网络', link: '/computer/b/' },
+          { text: '操作系统', link: '/computer/a/' },
+          { text: '数据结构与算法', link: '/computer/c/' },
+        ]
+      },
     ],
     sidebar: {
       '/guide': [
