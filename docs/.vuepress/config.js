@@ -12,7 +12,14 @@ module.exports = {
 
   themeConfig: {
     nav: [
-      { text: '指南', link: '/guide/' },
+      {
+        text: '学习',
+        items: [
+          { text: 'Webpack', link: '/study/webpack/' },
+          { text: 'Vue', link: '/study/vue/' },
+          { text: 'React', link: '/study/react/' },
+        ]
+      },
       { text: 'LeetCode', link: '/leetcode/' },
       { text: 'Typescript', link: '/typescript/' },
       { text: '单元测试', link: '/test/' },
