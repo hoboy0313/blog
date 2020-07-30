@@ -1,6 +1,6 @@
 module.exports = {
   
-  title: 'Luasy’s Blog',
+  title: 'ShenXi 神夕',
 
   description: '全面发展德智体美劳的小小programmer',
 
@@ -31,7 +31,7 @@ module.exports = {
         ]
       },
       {
-        text: '计算机课程',
+        text: '计算机体系',
         items: [
           { text: '计算机组成原理', link: '/computer/computer-principles/' },
           { text: '计算机网络', link: '/computer/b/' },
