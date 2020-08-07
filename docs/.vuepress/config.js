@@ -46,7 +46,12 @@ module.exports = {
           { text: '数据结构与算法', link: '/computer/c/' },
         ]
       },
+      {
+        text: '杂七杂八',
+        link: '/other/',
+      }
     ],
+
     sidebar: {
       '/guide': [
         { title: 'webpack', path: '/webpack/' }
@@ -62,6 +67,16 @@ module.exports = {
           children: [
             { title: 'String', path:'/ecma/string' },
             { title: 'Array', path:'/ecma/array' }
+          ]
+        }
+      ],
+      '/other/': [
+        {
+          title: '杂七杂八',
+          collapsable: false,
+          children: [
+            { title: 'Http杂谈', path:'/other/http' },
+            { title: 'Https杂谈', path:'/other/https' }
           ]
         }
       ]
