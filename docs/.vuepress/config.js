@@ -76,7 +76,8 @@ module.exports = {
           collapsable: false,
           children: [
             { title: 'Http杂谈', path:'/other/http' },
-            { title: 'Https杂谈', path:'/other/https' }
+            { title: 'Https杂谈', path:'/other/https' },
+            { title: 'Typescript', path:'/other/typescript' }
           ]
         }
       ]
