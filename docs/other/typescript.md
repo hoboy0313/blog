@@ -342,7 +342,7 @@ TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会�
 碰到问题1: JSX 元素隐式具有类型 "any"，因为不存在接口 "JSX.IntrinsicElements"。
 解决：React 对 IntrinsicElements 接口， Element 接口等都进行了实现，貌似在 react.d.ts
 
-**TODO: 找到声明的 types 包。**
+**解决方案：`npm i -D @types/react`**
 
 ### 0.2.11 lib
 
