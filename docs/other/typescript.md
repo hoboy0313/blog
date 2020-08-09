@@ -1,137 +1,36 @@
 # Typescript
 
-## tsconfig.json
+## 0. tsconfig.json 配置项
 ```js
 {
+  /* File Inclusion */
+  "include": ["src/**/*", "tests/**/*"]
+
+
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
-    /* Basic Options */
-    // 允许导入 js文件。如果为 false，在 ts 文件中 import js文件会报错。
+    /* Project Options */
     "allowJs": true,
-
-    /** 与 “allowjs” 协同，会对 js 中的使用，也进行类型校验。
-     *  例如："checkJs": false,
-     *  @file1.js
-     *  export default const pi = parseFloat(3.14)   // 其实 parseFloat(str: String), 入参规定是 字符串。
-     *  @file2.ts
-     *  import pi from 'files1.js'  // 这里不会报错。如果，"checkJs": true, 则会报错，入参必须为 String.
-     */
     "checkJs": true,
-
-    /**
-     * 启动工程编译：
-     * 
-     * ❓不太懂什么意思。
-     * 
-     * 前置条件：
-     * - `allowJs` 属性必须开启。
-     * - 设置 `rootDir` 配置项。
-     * - 所有的声明文件都必须在 `includes` 和 `files` 属性中有列出来。
-     * - 复合功能的开启，强依赖，`declaration` 的开启。
-     */
     "composite": true,
-
-    /**
-     * 为项目下的 ts 和 js 文件生成，对应的 d.ts 声明文件
-     */
     "declaration": true,
-
-    /**
-     * @origin `Generates a sourcemap for each corresponding '.d.ts' file.`
-     * 
-     * declarationMap 属性，依赖于 `declaration` 或 `composite` 属性中的任意一个
-     * 开启后，会生成 .d.ts.map 文件，对应源 .d.ts 文件的 sourceMap.
-     */
     "declarationMap": true,
-
-    /**
-     * @origin `Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'.`
-     * 
-     * 为 false 时，则对迭代器的写法默认自动降级成 for 循环。
-     * 例如，for-of, [...arr], function(...args) 和 Symbol.iterator, 都会被转换成 for 循环进行赋值。
-     * 
-     * 注意⚠️：虽然绝大多数情况下是满足期望的，但不是百分百。例如，很多 emoji，如（😜），for 循环的长度为2，甚至更多，但是迭代器只会读取到一个。
-     * 关于这个可以看[1.this blog post by Jonathan New]的博客, 本末有链接。
-     * 
-     * 如果，Symbol.iterator 不被提供在运行时，就存在一些问题。如下：
-     * // Make an array where the '1' element is missing
-     * let missing = [0, , 1];
-     * let spreaded = [...missing];
-     * let concated = [].concat(missing);
-     * 
-     * // true
-     * "1" in spreaded;
-     * // false
-     * "1" in concated;
-     * 
-     * 所有，只有当 Symbol.iterator，被提供的时候才能更加准备的模仿 ES6 的行为。
-     * 
-     * 简而言之，开启就对了，可以尽可能提高合法性。（如果原生不支持，Symbol.iterator就尴尬了。)
-     * 假想：能否通过 babel 对 Symbol 的垫片来完成更加低版本的兼容问题。
-     */
     "downlevelIteration": true,
-
-    /** 
-     * @origin `Import emit helpers from 'tslib'.`
-     * 
-     * 简称为：导入助手。
-     * 在降级过程中，例如上面对迭代器的兼容，使用一个 for循环的函数。如果，很多文件都有使用的话，则会每个文件都有自己的一个迭代器的实现。
-     * downlevelIteration 和 importHelpers 开启的话，就会去引入 'tslib' 来进行模版的复用。
-     */
     "importHelpers": true,
-
-    /**
-     * @origin `Enable incremental compilation`
-     * 
-     * 创建一个 .tsbuildinfo 后缀的名称，跟随在 tsconfig.json 目录中。
-     * 功能是，展示一个对项目中依赖关系的图文件，可以随时删除，对项目无影响。
-     */
     "incremental": true,
-
-    /**
-     * @origin `Transpile each file as a separate module (similar to 'ts.transpileModule').`
-     * 
-     * 对每个文件都进行隔离模块导出。即，必须在文件中使用 import/export.
-     * 场景：
-     *  // 假设 someType 根本没被定义，没有这个导出项，那么 export 出的 someType 将被过滤掉。从而引发 js 运行时错误。
-     *  import { someType, someFunction } from "someModule";
-     *  someFunction();
-     *  export { someType, someFunction };
-     *  
-     * ❓个人疑问：someType 没写，按理来说不是，ts 编译器就会报错，为什么，到运行时？还是说，其他的编译器可以通过？例如，babel。
-     */
     "isolatedModules": true,
-
-    /**
-     * @origin `Specify JSX code generation: 'preserve', 'react-native', or 'react'.`
-     * 对 jsx 语法的内置支持。三种支持的区别为：
-     * 模式             输入         输出                        输出文件扩展名
-     * preserve	      <div />   	<div />	                       .jsx
-     * react	        <div />	   React.createElement("div")	     .js
-     * react-native	  <div />	    <div />	                       .js
-     * 
-     * 碰到问题1: JSX 元素隐式具有类型 "any"，因为不存在接口 "JSX.IntrinsicElements"。
-     * 解决：React 对 IntrinsicElements 接口， Element 接口等都进行了实现，貌似在 react.d.ts
-     * TODO: 找到声明的 types 包。
-     */
-    "jsx": "preserve",
-
-    /** 
-     * @origin `Specify library files to be included in the compilation.`
-     * 
-     */                   
-    "lib": [],
-
+    "jsx": "preserve",                  
+    // "lib": ["es5", "es2015", "es2016", "es2017", "es2018", "dom"],
+    "module": "commonjs",
+    // "noEmit": true,
+    "outDir": "./dist",
+    // "outFile": "./",
+    // "plugin": [],
+  
     "target": "es5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
-    "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
     // "sourceMap": true,                     /* Generates corresponding '.map' file. */
-    // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    // "outDir": "./",                        /* Redirect output structure to the directory. */
     // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true,                /* Do not emit comments to output. */
-    // "noEmit": true,                        /* Do not emit outputs. */
 
     /* Strict Type-Checking Options */
     "strict": true,                           /* Enable all strict type-checking options. */
@@ -179,4 +78,448 @@
 
 ```
 
-[1.this blog post by Jonathan New](https://blog.jonnew.com/posts/poo-dot-length-equals-two)
+## 0.1 File Inclusion
+
+
+
+### exclude
+
+`default: ["node_modules", "bower_components", "jspm_packages"]`
+
+指定哪些文件会**跳过**编译操作。
+
+:::warning
+**注意**: `exclude` 只跳过包含在 `include` 文件所包含的文件。它不会排除文件中，`include` 中有的文件引入了 `exclude` 中的文件, 它是不处理这种依赖关系的，只处理该文件是否包含在`include`, 至于未排除的文件，引入了排除文件中的内容，依旧会被打包进代码库。
+:::
+
+### extends
+
+`default: false`
+
+配置继承。
+举例：
+
+```json
+// configs/base.json:
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
+```
+
+```json
+// tsconfig.json
+{
+  "extends": "./configs/base",
+  "files": ["main.ts", "supplemental.ts"]
+}
+```
+
+```json
+// tsconfig.nostrictnull.json
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "strictNullChecks": false
+  }
+}
+```
+
+### files
+
+`default: false`
+
+对指定的文件进行编译处理。如果有任意文件没有找到就会报错。
+
+举例：
+```json
+{
+  "compilerOptions": {},
+  "files": [
+    "core.ts",
+    "sys.ts",
+    "types.ts",
+    "scanner.ts",
+    "parser.ts",
+    "utilities.ts",
+    "binder.ts",
+    "checker.ts",
+    "tsc.ts"
+  ]
+}
+```
+
+:::tip
+用于小型工程是有意义的，而不需要使用 glob 模式，如果文件很多的，请使用 [inlude](#include)
+:::
+
+### include
+
+确定哪些目录一定会被编译处理。
+
+```json
+// tsconfig.json
+{
+  "include": ["src/**/*", "tests/**/*"]
+}
+```
+情况如下：
+
+```js
+.
+├── scripts                ⨯
+│   ├── lint.ts            ⨯
+│   ├── update_deps.ts     ⨯
+│   └── utils.ts           ⨯
+├── src                    ✓
+│   ├── client             ✓
+│   │    ├── index.ts      ✓
+│   │    └── utils.ts      ✓
+│   ├── server             ✓
+│   │    └── index.ts      ✓
+├── tests                  ✓
+│   ├── app.test.ts        ✓
+│   ├── utils.ts           ✓
+│   └── tests.d.ts         ✓
+├── package.json
+├── tsconfig.json
+└── yarn.lock
+```
+
+:::tip
+`include` 和 `exclude` 支持通配符的全局模式：
+
+- * 匹配零个或多个字符（目录分隔符除外）
+- ? 匹配任何一个字符（目录分隔符除外）
+- **/ 匹配嵌套到任何级别的任何目录
+
+如果glob模式不包括文件扩展名，则只有部分文件扩展被支持（例如:  默认情况下 `.ts`，`.tsx`和`.d.ts`，`.js`和 `.jsx`, 设置`allowJs`为`true` 也可以被默认）。
+:::
+
+### references
+
+TODO: 有点晦涩，没场景解读。
+
+### typeAcquisition
+
+类型获取。就是可以指定是否开启自动获取类型。
+
+```json
+{
+  "typeAcquisition": {
+    "enable": false,   // 默认为 true。`TypeScript` 会自动以 `nodule_modules/@types` 下的声明导入。
+    "include": ["jest"],  // 如果有声明模块不在 `node_modules` 下，可以在这里配。
+    "exclude": ["jquery"] // 如果，已经有自己的某个声明，可以忽略掉 `node_modules` 下的，使用自己的。
+  }
+}
+```
+
+
+## 0.2 Project Options
+
+### allowJs
+
+允许导入 js文件。如果为 false，在 ts 文件中 import js文件会报错。
+
+### checkJs
+
+与 “allowJs” 协同，会对 js 中的使用，也进行类型校验。
+例如："checkJs": false,
+
+文件 `file1.js`
+```js
+export default const pi = parseFloat(3.14)   // 其实 parseFloat(str: String), 入参规定是 字符串。
+```
+
+文件 `file2.ts`
+```ts
+import pi from 'files1.js'  // 这里不会报错。如果，"checkJs": true, 则会报错，入参必须为 String.
+```
+
+### composite
+
+启动工程编译.(TODO:❓不太懂什么意思。)
+
+前置条件：
+- `allowJs` 属性必须开启。
+- 设置 `rootDir` 配置项。
+- 所有的声明文件都必须在 `includes` 和 `files` 属性中有列出来。
+- 复合功能的开启，强依赖，`declaration` 的开启。
+
+### declaration
+
+为项目下的 ts 和 js 文件生成，对应的 d.ts 声明文件.
+
+### declarationMap
+
+`Generates a sourcemap for each corresponding '.d.ts' file.`
+
+declarationMap 属性，依赖于 `declaration` 或 `composite` 属性中的任意一个的开启，
+会生成 .d.ts.map 文件，对应源 .d.ts 文件的 sourceMap.
+
+### downlevelIteration
+
+`Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'.`
+
+解释：设置为 false 时，则对迭代器的写法默认自动降级成 for 循环。例如，for-of, [...arr], function(...args) 和 Symbol.iterator, 都会被转换成 for 循环进行赋值。
+
+::: warning
+注意：虽然绝大多数情况下是满足期望的，但不是百分百。例如，很多 emoji，如（😜），for 循环的长度为2，甚至更多，但是迭代器只会读取到一个。
+关于这个可以看[this blog post by Jonathan New](https://blog.jonnew.com/posts/poo-dot-length-equals-two).
+:::
+
+如果，Symbol.iterator 不被提供在运行时，就存在一些问题。如下：
+```js
+// Make an array where the '1' element is missing
+let missing = [0, , 1];
+let spreaded = [...missing];
+let concated = [].concat(missing);
+
+"1" in spreaded; // true
+"1" in concated; // false
+```
+所有，只有当 Symbol.iterator，被提供的时候才能更加准备的模仿 ES6 的行为。
+
+**简而言之，开启就对了，可以尽可能提高合法性。（如果原生不支持，Symbol.iterator就尴尬了。)**
+
+::: tip
+假想：能否通过 babel 对 Symbol 的垫片来完成更加低版本的兼容问题。
+:::
+
+### importHelpers
+
+`Import emit helpers from 'tslib'.`
+      
+简称为：导入助手。
+在降级过程中，例如上面对迭代器的兼容，使用一个 for循环的函数。如果，很多文件都有使用的话，则会每个文件都有自己的一个迭代器的实现。
+downlevelIteration 和 importHelpers 开启的话，就会去引入 'tslib' 来进行模版的复用。
+
+### incremental
+
+`Enable incremental compilation`
+
+创建一个 .tsbuildinfo 后缀的名称，跟随在 tsconfig.json 目录中。
+此功能是展示一个对项目中依赖关系的图文件，可以随时删除，对项目无影响。
+
+
+### isolatedModules
+
+`Transpile each file as a separate module (similar to 'ts.transpileModule').`
+
+即：对每个文件都进行隔离模块导出。即，必须在文件中使用 import/export.
+例如：
+
+```ts
+// 假设 someType 根本没被定义，没有这个导出项，那么 export 出的 someType 将被过滤掉。从而引发 js 运行时错误。
+import { someType, someFunction } from "module1";
+
+someFunction();
+
+export { someType, someFunction };
+```
+
+:::tip
+TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会报错，为什么，到运行时？还是说，其他的编译器可以通过？例如，babel。
+:::
+
+### jsx
+
+`Specify JSX code generation: 'preserve', 'react-native', or 'react'.`
+
+对 jsx 语法的内置支持。三种支持的区别为：
+|     模式    |   输入   |            输出            |输出文件扩展名|
+|------------|---------|----------------------------|------------|
+|preserve    | <div \/> | <div \/>	                  |    .jsx    |
+|react       | <div \/> | React.createElement("div") |    .js     |
+|react-native| <div \/> | <div \/>	                  |    .js     |
+
+碰到问题1: JSX 元素隐式具有类型 "any"，因为不存在接口 "JSX.IntrinsicElements"。
+解决：React 对 IntrinsicElements 接口， Element 接口等都进行了实现，貌似在 react.d.ts
+
+**TODO: 找到声明的 types 包。**
+
+### lib
+
+`Specify library files to be included in the compilation.`
+
+即，编译过程中需要引入的库文件的列表。
+更多：https://www.typescriptlang.org/tsconfig#lib
+
+**一般情况下，无需做更改，默认即可**
+
+### module
+
+`Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'.`
+
+设置模版的导出类型。
+直接参考官网文档即可：[文档](https://www.typescriptlang.org/tsconfig#module)
+
+### noEmit
+
+`Do not emit outputs`
+
+让 `typescript` 不输出编译后的文件，只对类型做校验检查。
+
+**这是一个很重要的指令(曾经是...)**
+
+曾经在做 ts 文件编译，`typescript` 在降级编译等，以及一些其他编译能力上还不够完善(现在发现以前的问题，tsc 自身都可以解决了。)，然后就需要用非 tsc 的编译器去编译文件，例如 `babel`, 但是 需要使用 `typescript` 来做类型校验，所以就不用输出两份文件，也不需要先 tsc 编译，再babel 编译这样的弟弟行为。
+
+### outDir
+
+`Redirect output structure to the directory.`
+
+文件的输出目录，没啥好说的。
+
+### outFile
+
+`Concatenate and emit output to single file.`
+
+输出文件到指定的文件中。
+
+- 所有的**非模块文件**会输出到该文件
+- 如果`module`为`system` or `amd`，那么模块文件会在所有的非模块文件输出完之后，串联输入到该文件中。
+
+:::tip
+注意： outFile只能用在 `module` 为 `none`, `system`, `amd`，此选项不能用于 `commonjs` 和 `esm`.
+
+TODO: 个人还没有确定的使用场景，之后补上。
+:::
+
+### plugin
+
+在编辑器中运行的语言服务插件列表。
+
+语言服务插件是一种基于现有TypeScript文件向用户提供其他信息的方法。他们可以增强TypeScript和编辑器之间的现有消息，或者提供自己的错误消息。
+
+例如：
+
+- [ts-sql-plugin](https://github.com/xialvjun/ts-sql-plugin#readme) 使用模板字符串“ SQL构建器”添加SQL lint。
+- [typescript-styled-plugin](https://github.com/Microsoft/typescript-styled-plugin) 在模板字符串中提供CSS linting。
+- [typescript-eslint-language-service](https://github.com/Quramy/typescript-eslint-language-service) : 在编译器的输出中提供eslint错误消息和修复。
+- [ts-graphql-plugin](https://github.com/Quramy/ts-graphql-plugin) 在GraphQL查询模板字符串内提供验证和自动完成。
+
+### removeComments
+
+`default: false`
+
+编译到 js 后，是否移除注释。
+
+### rootDir
+
+`default: Computed from the list of input files`
+
+设置哪个目录下的文件要编译。
+
+### sourceMap
+
+`default: false`
+
+是否生成源码的 `sourceMap`.
+
+### target
+
+`default: 'ES5'`
+
+准备编译到哪个`ESM的版本`。
+
+
+### tsBuildInfoFile
+
+`default: .tsbuildinfo`
+
+当设置 `incremental` 为 `true`, 则会生成依赖图，这个用于修改生成文件的名称。
+
+## 0.3 Strict Checks
+
+### alwaysStrict
+### noImplicitAny
+### noImplicitThis
+### strict
+### strictBindCallApply
+### strictFunctionTypes
+### strictNullChecks
+### strictPropertyInitialization
+
+## 0.4 Module Resolution
+### allowSyntheticDefaultImports
+### allowUmdGlobalAccess
+### baseUrl
+### esModuleInterop
+### moduleResolution
+### paths
+### preserveSymlinks
+### rootDirs
+### typeRoots
+### types
+
+## 0.5 Source Maps
+### inlineSourceMap
+### inlineSources
+### mapRoot
+### sourceRoot
+
+## 0.6 Linter Checks
+### noFallthroughCasesInSwitch
+### noImplicitReturns
+### noUnusedLocals
+### noUnusedParameters
+
+## 0.7 Experimental
+### emitDecoratorMetadata
+### experimentalDecorators
+
+## 0.8 Command Line
+### preserveWatchOutput
+### pretty
+
+## 0.9 Watch Options
+### fallbackPolling
+### watchDirectory
+### watchFile
+
+## 0.10 Advanced
+allowUnreachableCode
+allowUnusedLabels
+assumeChangesOnlyAffectDirectDependencies
+charset
+declarationDir
+diagnostics
+disableSizeLimit
+disableSolutionSearching
+disableSourceOfProjectReferenceRedirect
+emitBOM
+ 
+emitDeclarationOnly
+extendedDiagnostics
+forceConsistentCasingInFileNames
+generateCpuProfile
+importsNotUsedAsValues
+jsxFactory
+jsxFragmentFactory
+keyofStringsOnly
+listEmittedFiles
+listFiles
+ 
+maxNodeModuleJsDepth
+newLine
+noEmitHelpers
+noEmitOnError
+noErrorTruncation
+noImplicitUseStrict
+noLib
+noResolve
+noStrictGenericChecks
+out
+ 
+preserveConstEnums
+reactNamespace
+resolveJsonModule
+skipDefaultLibCheck
+skipLibCheck
+stripInternal
+suppressExcessPropertyErrors
+suppressImplicitAnyIndexErrors
+traceResolution
+useDefineForClassFields
