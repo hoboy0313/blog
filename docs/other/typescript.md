@@ -1,5 +1,7 @@
 # Typescript
 
+当前书写的配置版本是基于`3.9.1`
+
 ## 0. tsconfig.json 配置项
 ```js
 {
@@ -82,7 +84,7 @@
 
 
 
-### exclude
+### 0.1.1 exclude
 
 `default: ["node_modules", "bower_components", "jspm_packages"]`
 
@@ -92,7 +94,7 @@
 **注意**: `exclude` 只跳过包含在 `include` 文件所包含的文件。它不会排除文件中，`include` 中有的文件引入了 `exclude` 中的文件, 它是不处理这种依赖关系的，只处理该文件是否包含在`include`, 至于未排除的文件，引入了排除文件中的内容，依旧会被打包进代码库。
 :::
 
-### extends
+### 0.1.2 extends
 
 `default: false`
 
@@ -127,7 +129,7 @@
 }
 ```
 
-### files
+### 0.1.3 files
 
 `default: false`
 
@@ -155,7 +157,7 @@
 用于小型工程是有意义的，而不需要使用 glob 模式，如果文件很多的，请使用 [inlude](#include)
 :::
 
-### include
+### 0.1.4 include
 
 确定哪些目录一定会被编译处理。
 
@@ -198,11 +200,11 @@
 如果glob模式不包括文件扩展名，则只有部分文件扩展被支持（例如:  默认情况下 `.ts`，`.tsx`和`.d.ts`，`.js`和 `.jsx`, 设置`allowJs`为`true` 也可以被默认）。
 :::
 
-### references
+### 0.1.5 references
 
 TODO: 有点晦涩，没场景解读。
 
-### typeAcquisition
+### 0.1.6 typeAcquisition
 
 类型获取。就是可以指定是否开启自动获取类型。
 
@@ -215,6 +217,8 @@ TODO: 有点晦涩，没场景解读。
   }
 }
 ```
+
+**TODO: 自己尝试写了个目录，当未生效。**
 
 
 ## 0.2 Project Options
@@ -433,14 +437,169 @@ TODO: 个人还没有确定的使用场景，之后补上。
 
 ## 0.3 Strict Checks
 
-### alwaysStrict
-### noImplicitAny
+### 0.3.1 alwaysStrict
+
+`default: false;`
+
+始终严格: 给每个编译输出的js文件增加`use strict`
+
+### 0.3.2 noImplicitAny
+
+`default: true;`
+
+不准有隐式的 any参数。
+
+```ts {2}
+function fn(s) {
+  // Parameter 's' implicitly has an 'any' type.
+  console.log(s.subtr(3));
+}
+```
+
 ### noImplicitThis
+
+`default: true;`
+
+不准有隐式的 `this`.
+```ts {12,13}
+class Rectangle {
+  width: number;
+  height: number;
+
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+  }
+
+  getAreaFunction() {
+    return function () {
+      // 'this' implicitly has type 'any' because it does not have a type annotation.
+      // 'this' implicitly has type 'any' because it does not have a type annotation.
+      return this.width * this.height;
+    };
+  }
+
+  // getAreaFunction(this: Rectangle) {
+  //   return function () {
+  //     return this.width * this.height;
+  //   };
+  // }
+
+}
+```
+
+:::tip
+如果想使用 `this`, 可以声明到第一参数上，编译后，不会占用参数位置。如上注释代码。
+:::
+
+
 ### strict
+
+`default: false;`
+
+是否启用严格模式。
+
+该项设为 `true`, 那么将开启所有的 `Strict` 校验，可根据需求去关闭其他指定的选项。如下：
+```json
+{
+  "compilerOptions": {
+    "strict": true, // 默认开启了其他的 strict 校验。
+    "noImplicitThis": false   // 关闭 noImplicitThis
+  }
+}
+```
+
 ### strictBindCallApply
+
+`default: false`
+
+对 call,bind,apply 的函数进行参数校验。
+
+```ts {7}
+function fn(x: string) {
+  return parseInt(x);
+}
+
+const n1 = fn.call(undefined, "10");
+
+// Argument of type 'boolean' is not assignable to parameter of type 'string'.
+// 关掉这不会报错。
+const n2 = fn.call(undefined, false);
+```
+
 ### strictFunctionTypes
+
+`default: false`
+
+检查函数的入参和出参的数据类型是否正确。
+
+:::warning
+该模式对函数式编程友好，对于固有的不安全层级性质的数据校验不友好，就像DOM对象。
+```ts
+type Methodish = {
+  func(x: string | number): void;
+};
+
+function fn(x: string) {
+  console.log("Hello, " + x.toLowerCase());
+}
+
+// Ultimately an unsafe assignment, but not detected
+// m 对象的 func 是不安全的，但是未被检测到。
+const m: Methodish = {
+  func: fn,
+};
+m.func(10);
+```
+:::
+
 ### strictNullChecks
+
+`default: false`
+
+如果为 `false`, 会认为 `null` 和 `undefined` 将会被忽略，这可能导致运行时错误。例如：
+```ts
+declare const loggedInUsername: string;
+
+const users = [
+  { name: "Oby", age: 12 },
+  { name: "Heera", age: 32 },
+];
+
+const loggedInUser = users.find((u) => u.name === loggedInUsername);
+// 如果开启会有如下报错：
+// ‘loggedInUser’ is possibly 'undefined'. 
+console.log(loggedInUser.age);
+```
+
 ### strictPropertyInitialization
+
+`default: false`
+
+严格初始化数据，如下：
+
+```ts
+class UserAccount {
+  name: string;
+  accountType = "user";
+
+  email: string;
+  // Property 'email' has no initializer and is not definitely assigned in the constructor.
+  address: string | undefined;
+
+  constructor(name: string) {
+    this.name = name;
+    // Note that this.email is not set
+  }
+}
+```
+
+关于上述案例:
+- `this.name` 被设置了初始化.
+- `this.accountType` 有默认值.
+- `this.email` 由于没有设置而报错.
+- `this.address` 由于声明了可能为 `undefined`, 所以可以无需初始化.
+
 
 ## 0.4 Module Resolution
 ### allowSyntheticDefaultImports
