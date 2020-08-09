@@ -223,11 +223,11 @@ TODO: 有点晦涩，没场景解读。
 
 ## 0.2 Project Options
 
-### allowJs
+### 0.2.1 allowJs
 
 允许导入 js文件。如果为 false，在 ts 文件中 import js文件会报错。
 
-### checkJs
+### 0.2.2 checkJs
 
 与 “allowJs” 协同，会对 js 中的使用，也进行类型校验。
 例如："checkJs": false,
@@ -242,7 +242,7 @@ export default const pi = parseFloat(3.14)   // 其实 parseFloat(str: String), 
 import pi from 'files1.js'  // 这里不会报错。如果，"checkJs": true, 则会报错，入参必须为 String.
 ```
 
-### composite
+### 0.2.3 composite
 
 启动工程编译.(TODO:❓不太懂什么意思。)
 
@@ -252,18 +252,18 @@ import pi from 'files1.js'  // 这里不会报错。如果，"checkJs": true, �
 - 所有的声明文件都必须在 `includes` 和 `files` 属性中有列出来。
 - 复合功能的开启，强依赖，`declaration` 的开启。
 
-### declaration
+### 0.2.4 declaration
 
 为项目下的 ts 和 js 文件生成，对应的 d.ts 声明文件.
 
-### declarationMap
+### 0.2.5 declarationMap
 
 `Generates a sourcemap for each corresponding '.d.ts' file.`
 
 declarationMap 属性，依赖于 `declaration` 或 `composite` 属性中的任意一个的开启，
 会生成 .d.ts.map 文件，对应源 .d.ts 文件的 sourceMap.
 
-### downlevelIteration
+### 0.2.6 downlevelIteration
 
 `Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'.`
 
@@ -292,7 +292,7 @@ let concated = [].concat(missing);
 假想：能否通过 babel 对 Symbol 的垫片来完成更加低版本的兼容问题。
 :::
 
-### importHelpers
+### 0.2.7 importHelpers
 
 `Import emit helpers from 'tslib'.`
       
@@ -300,7 +300,7 @@ let concated = [].concat(missing);
 在降级过程中，例如上面对迭代器的兼容，使用一个 for循环的函数。如果，很多文件都有使用的话，则会每个文件都有自己的一个迭代器的实现。
 downlevelIteration 和 importHelpers 开启的话，就会去引入 'tslib' 来进行模版的复用。
 
-### incremental
+### 0.2.8 incremental
 
 `Enable incremental compilation`
 
@@ -308,7 +308,7 @@ downlevelIteration 和 importHelpers 开启的话，就会去引入 'tslib' 来�
 此功能是展示一个对项目中依赖关系的图文件，可以随时删除，对项目无影响。
 
 
-### isolatedModules
+### 0.2.9 isolatedModules
 
 `Transpile each file as a separate module (similar to 'ts.transpileModule').`
 
@@ -328,7 +328,7 @@ export { someType, someFunction };
 TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会报错，为什么，到运行时？还是说，其他的编译器可以通过？例如，babel。
 :::
 
-### jsx
+### 0.2.10 jsx
 
 `Specify JSX code generation: 'preserve', 'react-native', or 'react'.`
 
@@ -344,7 +344,7 @@ TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会�
 
 **TODO: 找到声明的 types 包。**
 
-### lib
+### 0.2.11 lib
 
 `Specify library files to be included in the compilation.`
 
@@ -353,14 +353,14 @@ TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会�
 
 **一般情况下，无需做更改，默认即可**
 
-### module
+### 0.2.12 module
 
 `Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'.`
 
 设置模版的导出类型。
 直接参考官网文档即可：[文档](https://www.typescriptlang.org/tsconfig#module)
 
-### noEmit
+### 0.2.13 noEmit
 
 `Do not emit outputs`
 
@@ -370,13 +370,13 @@ TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会�
 
 曾经在做 ts 文件编译，`typescript` 在降级编译等，以及一些其他编译能力上还不够完善(现在发现以前的问题，tsc 自身都可以解决了。)，然后就需要用非 tsc 的编译器去编译文件，例如 `babel`, 但是 需要使用 `typescript` 来做类型校验，所以就不用输出两份文件，也不需要先 tsc 编译，再babel 编译这样的弟弟行为。
 
-### outDir
+### 0.2.14 outDir
 
 `Redirect output structure to the directory.`
 
 文件的输出目录，没啥好说的。
 
-### outFile
+### 0.2.15 outFile
 
 `Concatenate and emit output to single file.`
 
@@ -391,7 +391,7 @@ TODO: 个人疑问：someType 没写，按理来说不是，ts 编译器就会�
 TODO: 个人还没有确定的使用场景，之后补上。
 :::
 
-### plugin
+### 0.2.16 plugin
 
 在编辑器中运行的语言服务插件列表。
 
@@ -410,26 +410,26 @@ TODO: 个人还没有确定的使用场景，之后补上。
 
 编译到 js 后，是否移除注释。
 
-### rootDir
+### 0.2.17 rootDir
 
 `default: Computed from the list of input files`
 
 设置哪个目录下的文件要编译。
 
-### sourceMap
+### 0.2.18 sourceMap
 
 `default: false`
 
 是否生成源码的 `sourceMap`.
 
-### target
+### 0.2.19 target
 
 `default: 'ES5'`
 
 准备编译到哪个`ESM的版本`。
 
 
-### tsBuildInfoFile
+### 0.2.20 tsBuildInfoFile
 
 `default: .tsbuildinfo`
 
@@ -456,7 +456,7 @@ function fn(s) {
 }
 ```
 
-### noImplicitThis
+### 0.3.3 noImplicitThis
 
 `default: true;`
 
@@ -493,7 +493,7 @@ class Rectangle {
 :::
 
 
-### strict
+### 0.3.4 strict
 
 `default: false;`
 
@@ -509,7 +509,7 @@ class Rectangle {
 }
 ```
 
-### strictBindCallApply
+### 0.3.5 strictBindCallApply
 
 `default: false`
 
@@ -527,7 +527,7 @@ const n1 = fn.call(undefined, "10");
 const n2 = fn.call(undefined, false);
 ```
 
-### strictFunctionTypes
+### 0.3.6 strictFunctionTypes
 
 `default: false`
 
@@ -553,7 +553,7 @@ m.func(10);
 ```
 :::
 
-### strictNullChecks
+### 0.3.7 strictNullChecks
 
 `default: false`
 
@@ -572,7 +572,7 @@ const loggedInUser = users.find((u) => u.name === loggedInUsername);
 console.log(loggedInUser.age);
 ```
 
-### strictPropertyInitialization
+### 0.3.8 strictPropertyInitialization
 
 `default: false`
 
@@ -602,83 +602,156 @@ class UserAccount {
 
 
 ## 0.4 Module Resolution
-### allowSyntheticDefaultImports
-### allowUmdGlobalAccess
-### baseUrl
-### esModuleInterop
-### moduleResolution
-### paths
-### preserveSymlinks
-### rootDirs
-### typeRoots
-### types
+### 0.4.1 allowSyntheticDefaultImports
+### 0.4.2 allowUmdGlobalAccess
+### 0.4.3 baseUrl
+### 0.4.4 esModuleInterop
+### 0.4.5 moduleResolution
+### 0.4.6 paths
+### 0.4.7 preserveSymlinks
+### 0.4.8 rootDirs
+### 0.4.9 typeRoots
+### 0.4.10 types
 
 ## 0.5 Source Maps
-### inlineSourceMap
-### inlineSources
-### mapRoot
-### sourceRoot
+### 0.5.1 inlineSourceMap
+### 0.5.2 inlineSources
+### 0.5.3 mapRoot
+### 0.5.4 sourceRoot
 
 ## 0.6 Linter Checks
-### noFallthroughCasesInSwitch
-### noImplicitReturns
-### noUnusedLocals
-### noUnusedParameters
+### 0.6.1 noFallthroughCasesInSwitch
+### 0.6.2 noImplicitReturns
+### 0.6.3 noUnusedLocals
+### 0.6.4 noUnusedParameters
 
 ## 0.7 Experimental
-### emitDecoratorMetadata
-### experimentalDecorators
+### 0.7.1 emitDecoratorMetadata
+
+`default: false`
+
+是否使用元数据 Metadata。此选项依赖 `experimentalDecorators` 的开启。
+
+```ts
+// 源文件
+function LogMethod (a: any, b: string | symbol) {
+  console.log('a :>> ', a, b);
+}
+
+class A {
+
+  @LogMethod
+  log() {}
+}
+```
+
+```js
+// 未开启后的编译文件
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+function LogMethod(a, b) {
+    console.log('a :>> ', a, b);
+}
+var A = /** @class */ (function () {
+    function A() {
+    }
+    A.prototype.log = function () { };
+    __decorate([
+        LogMethod
+    ], A.prototype, "log", null);
+    return A;
+}());
+```
+
+```js
+// 开启后的编译文件
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+function LogMethod(a, b) {
+    console.log('a :>> ', a, b);
+}
+var A = /** @class */ (function () {
+    function A() {
+    }
+    A.prototype.log = function () { };
+    __decorate([
+        LogMethod,
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], A.prototype, "log", null);
+    return A;
+}());
+```
+
+### 0.7.2 experimentalDecorators
+
+`default: false`
+是否开启实验中的装饰器写法。
 
 ## 0.8 Command Line
-### preserveWatchOutput
-### pretty
+### 0.8.1 preserveWatchOutput
+### 0.8.2 pretty
 
 ## 0.9 Watch Options
-### fallbackPolling
-### watchDirectory
-### watchFile
+### 0.9.1 fallbackPolling
+### 0.9.2 watchDirectory
+### 0.9.3 watchFile
 
 ## 0.10 Advanced
-allowUnreachableCode
-allowUnusedLabels
-assumeChangesOnlyAffectDirectDependencies
-charset
-declarationDir
-diagnostics
-disableSizeLimit
-disableSolutionSearching
-disableSourceOfProjectReferenceRedirect
-emitBOM
+### 0.10.1 allowUnreachableCode
+### 0.10.2 allowUnusedLabels
+### 0.10.3 assumeChangesOnlyAffectDirectDependencies
+### 0.10.4 charset
+### 0.10.5 declarationDir
+### 0.10.6 diagnostics
+### 0.10.7 disableSizeLimit
+### 0.10.8 disableSolutionSearching
+### 0.10.9 disableSourceOfProjectReferenceRedirect
+### 0.10.10 emitBOM
  
-emitDeclarationOnly
-extendedDiagnostics
-forceConsistentCasingInFileNames
-generateCpuProfile
-importsNotUsedAsValues
-jsxFactory
-jsxFragmentFactory
-keyofStringsOnly
-listEmittedFiles
-listFiles
+### 0.10.10 emitDeclarationOnly
+### 0.10.11 extendedDiagnostics
+### 0.10.12 forceConsistentCasingInFileNames
+### 0.10.13 generateCpuProfile
+### 0.10.14 importsNotUsedAsValues
+### 0.10.15 jsxFactory
+### 0.10.16 jsxFragmentFactory
+### 0.10.17 keyofStringsOnly
+### 0.10.18 listEmittedFiles
+### 0.10.19 listFiles
  
-maxNodeModuleJsDepth
-newLine
-noEmitHelpers
-noEmitOnError
-noErrorTruncation
-noImplicitUseStrict
-noLib
-noResolve
-noStrictGenericChecks
-out
+### 0.10.20 maxNodeModuleJsDepth
+### 0.10.21 newLine
+### 0.10.22 noEmitHelpers
+### 0.10.23 noEmitOnError
+### 0.10.24 noErrorTruncation
+### 0.10.25 noImplicitUseStrict
+### 0.10.26 noLib
+### 0.10.27 noResolve
+### 0.10.28 noStrictGenericChecks
+### 0.10.29 out
  
-preserveConstEnums
-reactNamespace
-resolveJsonModule
-skipDefaultLibCheck
-skipLibCheck
-stripInternal
-suppressExcessPropertyErrors
-suppressImplicitAnyIndexErrors
-traceResolution
-useDefineForClassFields
+### 0.10.30 preserveConstEnums
+### 0.10.31 reactNamespace
+### 0.10.32 resolveJsonModule
+### 0.10.33 skipDefaultLibCheck
+### 0.10.34 skipLibCheck
+### 0.10.35 stripInternal
+### 0.10.36 suppressExcessPropertyErrors
+### 0.10.37 suppressImplicitAnyIndexErrors
+### 0.10.38 traceResolution
+### 0.10.39 useDefineForClassFields
