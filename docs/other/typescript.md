@@ -3,6 +3,7 @@
 当前书写的配置版本是基于`3.9.1`
 
 ## 0. tsconfig.json 配置项
+
 ```js
 {
   /* File Inclusion */
@@ -81,8 +82,6 @@
 ```
 
 ## 0.1 File Inclusion
-
-
 
 ### 0.1.1 exclude
 
@@ -614,10 +613,28 @@ class UserAccount {
 ### 0.4.10 types
 
 ## 0.5 Source Maps
+
 ### 0.5.1 inlineSourceMap
+
+行内 sourceMap，即输出到js文件底部，不做额外文件输出。
+
 ### 0.5.2 inlineSources
+
+需要 `inlineSourceMap` 或 `sourceRoot` 任意一个搭配使用。增加源文件的sourceMap.
+
+例如, 只配置 `inlineSourceMap`，则 js 下的 sourceMap 只包含编译后的 `.js`, 配置 `inlineSources`, 可包含 `.ts`.
+
 ### 0.5.3 mapRoot
-### 0.5.4 sourceRoot
+
+TODO: ???
+
+### 0.5.4 sourceMap
+
+文成 `.js.map` 的sourceMap 文件。
+
+### 0.5.5 sourceRoot
+
+TODO: ???
 
 ## 0.6 Linter Checks
 ### 0.6.1 noFallthroughCasesInSwitch
