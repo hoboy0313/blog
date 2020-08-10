@@ -638,9 +638,61 @@ TODO: ???
 
 ## 0.6 Linter Checks
 ### 0.6.1 noFallthroughCasesInSwitch
+
+`switch` 的语句中，有多个 `case` 时，如果没有 `break` or `return`，则会报错。
+
+```ts {5}
+const a: number = 6;
+
+switch (a) {
+  case 0:
+    // Fallthrough case in switch.
+    console.log("even");
+  case 1:
+    console.log("odd");
+    break;
+}
+```
+
 ### 0.6.2 noImplicitReturns
+
+选项为`true`，则会检查所有函数的都有定义返回值。
+
+```ts {2}
+// "noImplicitReturns": true，如果把返回值类型删除，则会有提示。
+function lookupHeadphonesManufacturer(color: "blue" | "black"): string {
+  // Function lacks ending return statement and return type does not include 'undefined'.
+  if (color === "blue") {
+    return "beats";
+  } else {
+    "bose";
+  }
+}
+```
+
+```ts
+// "noImplicitReturns": false, 删除返回值类型，就不会报错了。
+function lookupHeadphonesManufacturer(color: "blue" | "black") {
+  // Function lacks ending return statement and return type does not include 'undefined'.
+  if (color === "blue") {
+    return "beats";
+  } else {
+    "bose";
+  }
+}
+```
+
 ### 0.6.3 noUnusedLocals
+
+如果有值被声明未使用，则会提示报错。
+
+:::tip
+可能项目中有使用 eslint 或者 tslint，当你关掉了之后 "no-unused-var" 后，还提示未使用，可以看看是不是这个值为 `true` 呢？
+:::
+
 ### 0.6.4 noUnusedParameters
+
+函数中，如果有声明参数，但未使用，则会提示报错。
 
 ## 0.7 Experimental
 ### 0.7.1 emitDecoratorMetadata
