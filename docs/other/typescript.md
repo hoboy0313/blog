@@ -637,6 +637,7 @@ TODO: ???
 TODO: ???
 
 ## 0.6 Linter Checks
+
 ### 0.6.1 noFallthroughCasesInSwitch
 
 `switch` 的语句中，有多个 `case` 时，如果没有 `break` or `return`，则会报错。
@@ -772,8 +773,14 @@ var A = /** @class */ (function () {
 是否开启实验中的装饰器写法。
 
 ## 0.8 Command Line
+
 ### 0.8.1 preserveWatchOutput
+
+当开启 `--watch` 模式的时候，为 `true`, 则不会删除控制台每次更新打印的东西。为 `false`, 每次修改保存，都会清空控制台。
+
 ### 0.8.2 pretty
+
+默认开启，给编译器提供一个单一颜色并具有上下文的`干净环境`。
 
 ## 0.9 Watch Options
 ### 0.9.1 fallbackPolling
