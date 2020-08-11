@@ -783,9 +783,29 @@ var A = /** @class */ (function () {
 默认开启，给编译器提供一个单一颜色并具有上下文的`干净环境`。
 
 ## 0.9 Watch Options
+
+从 3.8 版本才有的新配置项。一套新的 watching 策略去监听你的目录。
+
+- fixedPollingInterval : 以固定的时间间隔，检查文件的更改
+- priorityPollingInterval : 以固定的时间间隔，检查文件的更改，但是使用「heuristics」检查某些类型的文件的频率比其他文件低
+- dynamicPriorityPolling : 使用动态队列，在该队列中，较少检查不经常修改的文件
+- useFsEvents【default】 : 尝试使用操作系统/文件系统原生事件来监听文件更改
+- useFsEventsOnParentDirectory : 尝试使用操作系统/文件系统原生事件来监听文件、目录的更改，这样可以使用较小的文件监听程序，但是准确性可能较低
+
+- synchronousWatchDirectory : 在目录上禁用延迟监听功能。在可能一次发生大量文件（如 node_modules）更改时，它非常有用，但是你可能需要一些不太常见的设置时，禁用它。
+
 ### 0.9.1 fallbackPolling
+
+当使用文件系统的事件，该选项用来指定使用特定策略
+
 ### 0.9.2 watchDirectory
+
+在缺少递归文件监听功能的系统中，使用哪种策略监听整个目录树
+
 ### 0.9.3 watchFile
+
+监听单个文件的策略
+
 
 ## 0.10 Advanced
 ### 0.10.1 allowUnreachableCode
