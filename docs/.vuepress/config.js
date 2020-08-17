@@ -48,12 +48,16 @@ module.exports = {
       },
       {
         text: '杂七杂八',
-        items: [
-          { text: 'Http杂谈', link:'/other/http' },
-          { text: 'Typescript', link:'/other/typescript' },
-          { text: 'Interview', link:'/interview/' },
-        ]
+        link: '/other/',
       }
+      // {
+      //   text: '杂七杂八',
+      //   items: [
+      //     { text: 'Http杂谈', link:'/other/http' },
+      //     { text: 'Typescript', link:'/other/typescript' },
+      //     { text: 'Interview', link:'/interview/' },
+      //   ]
+      // }
     ],
 
     sidebar: {
@@ -80,7 +84,6 @@ module.exports = {
           collapsable: false,
           children: [
             { title: 'Http杂谈', path:'/other/http' },
-            { title: 'Https杂谈', path:'/other/https' },
             { title: 'Typescript', path:'/other/typescript' },
             { title: 'Interview', path:'/interview/' }
           ]
