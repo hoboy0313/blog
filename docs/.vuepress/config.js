@@ -48,7 +48,12 @@ module.exports = {
       },
       {
         text: '杂七杂八',
-        link: '/other/',
+        items: [
+          { text: 'Http杂谈', link:'/other/http' },
+          { text: 'Https杂谈', link:'/other/https' },
+          { text: 'Typescript', link:'/other/typescript' },
+          { text: 'Interview', link:'/interview/' }
+        ]
       }
     ],
 
@@ -77,7 +82,8 @@ module.exports = {
           children: [
             { title: 'Http杂谈', path:'/other/http' },
             { title: 'Https杂谈', path:'/other/https' },
-            { title: 'Typescript', path:'/other/typescript' }
+            { title: 'Typescript', path:'/other/typescript' },
+            { title: 'Interview', path:'/interview/' }
           ]
         }
       ]
