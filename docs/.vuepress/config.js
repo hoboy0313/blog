@@ -49,9 +49,9 @@ module.exports = {
       {
         text: '杂七杂八',
         items: [
-          { text: 'Https杂谈', link:'/other/https' },
+          { text: 'Http杂谈', link:'/other/http' },
           { text: 'Typescript', link:'/other/typescript' },
-          { text: 'Interview', link:'/interview/' }
+          { text: 'Interview', link:'/interview' }
         ]
       }
     ],
