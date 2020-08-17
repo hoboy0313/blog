@@ -2,7 +2,7 @@
   "name": "blog",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "liujinghan <jinghan.liu@yunjiaplus.com>",
+  "author": "liujinghan <dragon.jinghan.liu@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vuepress dev docs",
